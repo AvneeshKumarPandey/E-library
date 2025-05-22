@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Gallery</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Montserrat:wght@400;700&display=swap');
+        body {
+            background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
+            font-family: 'Montserrat', Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        .header {
+            text-align: center;
+            margin: 48px 0 24px 0;
+        }
+        .header h2 {
+            font-family: 'Orbitron', 'Montserrat', Arial, sans-serif;
+            font-size: 3em;
+            color: #00ffe7;
+            letter-spacing: 6px;
+            text-shadow: 0 0 24px #00ffe7, 0 0 8px #0ff, 0 0 2px #fff;
+            margin-bottom: 0;
+            background: linear-gradient(90deg, #00ffe7 0%, #ff00cc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 36px;
+        }
+        .search-input {
+            padding: 14px 24px;
+            font-size: 1.2em;
+            border-radius: 24px;
+            border: none;
+            outline: none;
+            width: 320px;
+            background: rgba(30, 30, 60, 0.85);
+            color: #fff;
+            box-shadow: 0 4px 24px #00ffe7a0, 0 1px 0 #ff00cc80;
+            transition: box-shadow 0.2s, background 0.2s;
+        }
+        .search-input:focus {
+            background: rgba(0, 255, 231, 0.15);
+            box-shadow: 0 0 24px #ff00cc, 0 0 8px #00ffe7;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 48px 64px;
+            max-width: 1400px;
+            margin: 0 auto 60px auto;
+            padding: 40px 16px;
+            background: rgba(20, 20, 40, 0.85);
+            border-radius: 32px;
+            box-shadow: 0 12px 48px #00ffe733, 0 2px 8px #ff00cc22;
+            border: 2px solid #00ffe7;
+            position: relative;
+        }
+        .gallery:before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 32px;
+            pointer-events: none;
+            box-shadow: 0 0 80px 10px #ff00cc55, 0 0 120px 30px #00ffe755;
+            z-index: 0;
+        }
+        .book {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(135deg, #23243a 60%, #1a1a2e 100%);
+            border-radius: 22px;
+            box-shadow: 0 4px 32px #00ffe733, 0 1px 8px #ff00cc22;
+            padding: 28px 22px 22px 22px;
+            transition: box-shadow 0.3s, transform 0.3s, border 0.3s;
+            border: 2px solid transparent;
+            position: relative;
+            z-index: 1;
+        }
+        .book:hover {
+            box-shadow: 0 12px 48px #ff00cc99, 0 0 32px #00ffe799;
+            transform: translateY(-10px) scale(1.04) rotate(-1deg);
+            border: 2px solid #ff00cc;
+        }
+        .animated-img {
+            width: 140px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px #00ffe799, 0 2px 8px #ff00cc55;
+            background: #fff;
+            border: 2px solid #00ffe7;
+            transition: transform 0.5s cubic-bezier(.68,-0.55,.27,1.55), box-shadow 0.3s, border 0.3s;
+            filter: drop-shadow(0 0 8px #ff00cc88);
+        }
+        .animated-img:hover {
+            transform: scale(1.13) rotate(-8deg);
+            box-shadow: 0 16px 64px #ff00ccbb, 0 0 24px #00ffe7cc;
+            border: 2px solid #ff00cc;
+            filter: brightness(1.15) saturate(1.3) drop-shadow(0 0 16px #00ffe7cc);
+        }
+        .creative-text {
+            margin-top: 18px;
+            font-family: 'Orbitron', 'Montserrat', Arial, sans-serif;
+            font-size: 1.15em;
+            color: #fff;
+            letter-spacing: 2.5px;
+            text-shadow: 0 0 12px #00ffe7, 0 0 2px #ff00cc;
+            background: linear-gradient(90deg, #ff00cc 0%, #00ffe7 100%);
+            padding: 10px 28px;
+            border-radius: 14px;
+            transition: background 0.3s, color 0.3s, transform 0.3s, box-shadow 0.3s;
+            display: inline-block;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 2px 12px #00ffe755, 0 0 8px #ff00cc33;
+            border: 2px solid transparent;
+            position: relative;
+        }
+        .creative-text:hover {
+            background: linear-gradient(90deg, #00ffe7 0%, #ff00cc 100%);
+            color: #23243a;
+            transform: scale(1.09) rotate(2deg);
+            text-shadow: 0 0 24px #ff00cc, 0 0 2px #00ffe7;
+            text-decoration: underline;
+            box-shadow: 0 0 24px #ff00cc99, 0 0 8px #00ffe799;
+            border: 2px solid #00ffe7;
+        }
+        .book-link {
+            display: block;
+        }
+        @media (max-width: 1100px) {
+            .gallery {
+                gap: 32px 18px;
+            }
+            .book {
+                padding: 18px 8px 14px 8px;
+            }
+        }
+        @media (max-width: 700px) {
+            .gallery {
+                flex-direction: column;
+                align-items: center;
+                gap: 28px;
+                padding: 10px 2px;
+            }
+            .header h2 {
+                font-size: 2em;
+            }
+            .search-input {
+                width: 95vw;
+                font-size: 1em;
+            }
+            .animated-img {
+                width: 90vw;
+                max-width: 220px;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>Choose a Book</h2>
+    </div>
+    <div class="search-container">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search books...">
+    </div>
+    <div class="gallery" id="gallery">
+        <div class="book">
+            <a href="1-Zac-by-Starfall.pdf" class="book-link">
+                <img src="1.png" alt="Story 1 Logo" class="book-img animated-img">
+            </a>
+            <a href="1-Zac-by-Starfall.pdf" class="book-title creative-text">Zac by Starfall</a>
+        </div>
+        <div class="book">
+            <a href="2-Peg-by-Starfall.pdf" class="book-link">
+                <img src="2.png" alt="Story 2 Logo" class="book-img animated-img">
+            </a>
+            <a href="2-Peg-by-Starfall.pdf" class="book-title creative-text">Peg by Starfall</a>
+        </div>
+        <div class="book">
+            <a href="3-TinMan-by-Starfall.pdf" class="book-link">
+                <img src="3.png" alt="Story 3 Logo" class="book-img animated-img">
+            </a>
+            <a href="3-TinMan-by-Starfall.pdf" class="book-title creative-text">TinMan by Starfall</a>
+        </div>
+        <div class="book">
+            <a href="4-Mox-by-Starfall.pdf" class="book-link">
+                <img src="4.png" alt="Story 4 Logo" class="book-img animated-img">
+            </a>
+            <a href="4-Mox-by-Starfall.pdf" class="book-title creative-text">Mox by Starfall</a>
+        </div>
+        <div class="book">
+            <a href="5-Gus-by-Starfall.pdf" class="book-link">
+                <img src="5.png" alt="Story 5 Logo" class="book-img animated-img">
+            </a>
+            <a href="5-Gus-by-Starfall.pdf" class="book-title creative-text">Gus by Starfall</a>
+        </div>
+        <div class="book">
+            <a href="6-Jake-by-Starfall.pdf" class="book-link">
+                <img src="6.png" alt="Story 6 Logo" class="book-img animated-img">
+            </a>
+            <a href="6-Jake-by-Starfall.pdf" class="book-title creative-text">Jake by Starfall</a>
+        </div>
+        <div class="book">
+            <a href="7-Pete-by-Starfall.pdf" class="book-link">
+                <img src="7.png" alt="Story 7 Logo" class="book-img animated-img">
+            </a>
+            <a href="7-Pete-by-Starfall.pdf" class="book-title creative-text">Pete by Starfall</a>
+        </div>
+        <div class="book">
+            <a href="8-SkyRide-by-Starfall.pdf" class="book-link">
+                <img src="8.png" alt="Story 8 Logo" class="book-img animated-img">
+            </a>
+            <a href="8-SkyRide-by-Starfall.pdf" class="book-title creative-text">SkyRide by Starfall</a>
+        </div>
+        <div class="book">
+            <a href="9-Robot-MrMole-by-Starfall.pdf" class="book-link">
+                <img src="9.png" alt="Story 9 Logo" class="book-img animated-img">
+            </a>
+            <a href="9-Robot-MrMole-by-Starfall.pdf" class="book-title creative-text">Robot MrMole by Starfall</a>
+        </div>
+        <div class="book">
+            <a href="10-DuneBuggy-by-Starfall.pdf" class="book-link">
+                <img src="10.png" alt="Story 10 Logo" class="book-img animated-img">
+            </a>
+            <a href="10-DuneBuggy-by-Starfall.pdf" class="book-title creative-text">DuneBuggy by Starfall</a>
+        </div>
+    </div>
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const books = document.querySelectorAll('.gallery .book');
+
+        searchInput.addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            books.forEach(book => {
+                const title = book.querySelector('.book-title').textContent.toLowerCase();
+                if (title.includes(query)) {
+                    book.style.display = '';
+                } else {
+                    book.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FlipBook E-Library</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(120deg, #f8fafc 0%, #e0e7ff 60%, #c7d2fe 100%);
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 1.2s ease;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Decorative shapes */
+    .shape {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.18;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .shape1 {
+      width: 320px; height: 320px;
+      background: #6366f1;
+      top: -80px; left: -120px;
+      filter: blur(8px);
+    }
+    .shape2 {
+      width: 180px; height: 180px;
+      background: #818cf8;
+      bottom: 40px; right: -60px;
+      filter: blur(6px);
+    }
+    .shape3 {
+      width: 90px; height: 90px;
+      background: #a5b4fc;
+      top: 60px; right: 60px;
+      filter: blur(4px);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    h1 {
+      font-size: 3.2rem;
+      color: #2d3a4b;
+      margin-bottom: 2.5rem;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+      text-align: center;
+      background: linear-gradient(90deg, #6366f1 30%, #818cf8 70%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: slideDown 1s cubic-bezier(.68,-0.55,.27,1.55);
+      z-index: 1;
+      position: relative;
+      text-shadow: 0 4px 24px rgba(99,102,241,0.08);
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-40px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    .subtitle {
+      font-size: 1.25rem;
+      color: #4b5563;
+      margin-bottom: 2.5rem;
+      letter-spacing: 0.5px;
+      text-align: center;
+      z-index: 1;
+      position: relative;
+      animation: fadeIn 1.5s 0.3s backwards;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      padding: 1.1rem 3rem;
+      background: linear-gradient(90deg, #6366f1 0%, #818cf8 100%);
+      color: #fff;
+      font-size: 1.3rem;
+      font-weight: 700;
+      border-radius: 2.5rem;
+      text-decoration: none;
+      box-shadow: 0 6px 32px rgba(99,102,241,0.14);
+      transition: transform 0.22s, box-shadow 0.22s, background 0.3s;
+      position: relative;
+      overflow: hidden;
+      letter-spacing: 0.7px;
+      z-index: 1;
+      border: none;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .cta-btn:hover, .cta-btn:focus {
+      background: linear-gradient(90deg, #818cf8 0%, #6366f1 100%);
+      transform: translateY(-6px) scale(1.06) rotate(-1.5deg);
+      box-shadow: 0 12px 40px rgba(99,102,241,0.22);
+      text-shadow: 0 2px 12px rgba(49, 46, 129, 0.10);
+    }
+
+    .cta-btn::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255,255,255,0.22);
+      border-radius: 100%;
+      transform: translate(-50%, -50%);
+      transition: width 0.5s, height 0.5s;
+      z-index: 0;
+    }
+
+    .cta-btn:hover::after {
+      width: 250%;
+      height: 600%;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      h1 { font-size: 2.1rem; }
+      .subtitle { font-size: 1rem; }
+      .cta-btn { font-size: 1.05rem; padding: 0.9rem 1.7rem; }
+      .shape1 { width: 180px; height: 180px; top: -60px; left: -60px;}
+      .shape2 { width: 100px; height: 100px; bottom: 10px; right: -30px;}
+      .shape3 { width: 50px; height: 50px; top: 30px; right: 20px;}
+    }
+  </style>
+</head>
+<body>
+  <div class="shape shape1"></div>
+  <div class="shape shape2"></div>
+  <div class="shape shape3"></div>
+  <h1>Welcome to FlipBook E-Library</h1>
+  <div class="subtitle">Discover, read, and enjoy a world of interactive story books.</div>
+  <a class="cta-btn" href="books.html">📚 View Story Books</a>
+</body>
+</html>
